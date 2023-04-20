@@ -1,0 +1,44 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+networking:
+  ipFamily: dual
+  podSubnet: "10.244.0.0/16"
+  serviceSubnet: "10.96.0.0/12"
+nodes:
+- role: control-plane
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+- role: worker
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+  extraMounts:
+  - hostPath: /var/lib/postgresql
+    containerPath: /var/lib/postgresql 
+  labels:
+    app: postgresql
+- role: worker
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+  extraMounts: 
+  - hostPath: /var/lib/mysql
+    containerPath: /var/lib/mysql 
+  labels:
+    app: mysql
+- role: worker  
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+  extraMounts: 
+  - hostPath: /var/lib/redis
+    containerPath: /var/lib/redis 
+  labels:
+    app: redis
+- role: worker  
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+  extraMounts: 
+  - hostPath: /var/lib/rabbitmq
+    containerPath: /var/lib/rabbitmq 
+  labels:
+    app: rabbitmq
+- role: worker  
+  image: kindest/node:v1.27.1@sha256:c83b0c44292af82e7d2972c121436bf91a6a47dd0fff0d4678240ec46f635d31
+  extraMounts: 
+  - hostPath: /var/opt/mssql/data/
+    containerPath: /var/opt/mssql/data/
+  labels:
+    app: mssql
