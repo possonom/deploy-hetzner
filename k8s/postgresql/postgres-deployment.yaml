@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: arm64v8/postgres:15.2
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: postgres-config 
+            - secretKeyRef:
+                name: postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/
+              name: postgredb
+          resources:
+            requests:
+              cpu: "1"
+              memory: 1Gi
+            limits:
+              cpu: "2"
+              memory: 4Gi 
+      nodeSelector:
+        app: postgresql
+      volumes:
+        - name: postgredb
+          persistentVolumeClaim:
+            claimName: postgres-pvc
