@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:    
+  sso:
+    image: quay.io/keycloak/keycloak:20.0.3
+    container_name: "keycloak"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./keycloak.conf:/opt/keycloak/conf/keycloak.conf
+    command:
+      - start-dev
+    environment:
+      - KEYCLOAK_ADMIN: possonom
+      - KEYCLOAK_ADMIN_PASSWORD: Pmsf.1973
+      - PROXY_ADDRESS_FORWARDING: true
+      - VIRTUAL_HOST: idserver.possdev.com
+      - VIRTUAL_PORT=: 80
+      - LETSENCRYPT_HOST: idserver.possdev.com
+    networks:
+      - proxy
+
