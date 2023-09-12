@@ -16,7 +16,7 @@ services:
       REDMINE_SECRET_KEY_BASE: ${REDMINE_SECRET_KEY_BASE}
       LETSENCRYPT_HOST: ${LETSENCRYPT_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      VIRTUAL_PORT: 80
+      VIRTUAL_PORT: 8081
       VIRTUAL_HOST: ${VIRTUAL_HOST}
     volumes:
       - redmine-data:/usr/src/redmine/files
