@@ -18,3 +18,14 @@ services:
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
       VIRTUAL_PORT: 8081
       VIRTUAL_HOST: ${VIRTUAL_HOST}
+    volumes:
+      - redmine-data:/usr/src/redmine/files
+    networks:
+      - proxy
+
+volumes:
+  redmine-data:
+
+networks:
+  proxy:
+    external: true
